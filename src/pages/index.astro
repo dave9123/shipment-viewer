@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 ---
 <script>
     import '../scripts/jquery.js'
+    import DOMPurify from 'dompurify';
 
     const searchParams = new URLSearchParams(window.location.search);
 
@@ -14,7 +15,7 @@ import Layout from "../layouts/Layout.astro";
     }
     if (searchParams.get('error')) {
         $("#flash").insertAdjacentHTML("beforeend", `<div class="alert alert-danger m-auto d-inline-block">
-				<strong>something went wrong:</strong> <a>${searchParams.get('error')}</a>
+				<strong>something went wrong:</strong> <a>${DOMPurify.sanitize(searchParams.get('error'))}</a>
 			</div>`)
     }
     if (searchParams.get('internal')) {
